@@ -1,5 +1,5 @@
 const channelIds = require('../other/id-list')
-const getInfo = require('../lib/get-info')
+const yt = require('../lib')
 
 const getData = (response) => {
     console.log(response)
@@ -20,7 +20,7 @@ const getData = (response) => {
 
 const allChannels = async (res) => {
     Promise.all(channelIds.map(async (channelId) => {
-        const response = await getInfo(channelId)
+        const response = await yt.getInfo(channelId)
         const data = getData(response)
         return data
     })).then((resArray) => {
@@ -38,7 +38,7 @@ const allChannels = async (res) => {
 
 const channelId = async (req, res) => {
     const channelId = req.params.channelId
-    const response = await getInfo(channelId)
+    const response = await yt.getInfo(channelId)
     if (response) {
         const data = getData(response)
         res.json({

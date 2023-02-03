@@ -1,5 +1,5 @@
 const channelIds = require('../other/id-list')
-const getVideo = require('../lib/get-video')
+const yt = require('../lib')
 const paginator = require('../other/paginator')
 
 const fromAllChannels = async (req, res) => {
@@ -7,7 +7,7 @@ const fromAllChannels = async (req, res) => {
     const per_page = req.query.per_page || 10
     let videos = []
     Promise.all(channelIds.map(async (channelId) => {
-        const response = await getVideo(channelId)
+        const response = await yt.getVideo(channelId)
         const items = response.items
         return items
     })).then((resArray) => {
@@ -32,7 +32,7 @@ const fromChannelId = async (req, res) => {
     const page = req.query.page || 1
     const per_page = req.query.per_page || 10
     const channelId = req.params.channelId
-    const response = await getVideo(channelId)
+    const response = await yt.getVideo(channelId)
     if (response) {
         const paginedVideos = paginator(response.items, page, per_page)
         res.json({

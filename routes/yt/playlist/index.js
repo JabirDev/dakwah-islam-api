@@ -1,8 +1,8 @@
-const getPlaylist = require('../lib/get-playlist')
+const yt = require('../lib')
 
 const channelId = async (req, res) => {
     const channelId = req.params.channelId
-    const response = await getPlaylist(channelId)
+    const response = await yt.getPlaylist(channelId)
     if (response) {
         res.json({
             error: false,
