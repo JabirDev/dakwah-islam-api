@@ -18,6 +18,15 @@ router.get('/playlist/:channelId', async function (req, res) {
 
 /* GET videos listing. */
 router.get('/videos', function (req, res, next) {
+  yt.getVideos.fromAllChannels(req, res)
+})
+
+router.get('/videos/:channelId', function (req, res, next) {
+  yt.getVideos.fromChannelId(req, res)
+})
+
+/* GET search query. */
+router.get('/search', function (req, res, next) {
   yt.getSearch.search(req, res)
 })
 

@@ -2,7 +2,6 @@ const channelIds = require('../other/id-list')
 const yt = require('../lib')
 
 const getData = (response) => {
-    console.log(response)
     const author = response.author
     const channelId = response.authorUrl.replace('http://www.youtube.com/', '')
     const url = response.authorUrl
