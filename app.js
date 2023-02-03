@@ -4,10 +4,7 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 
 const indexRouter = require('./routes/index')
-const channelRouter = require('./routes/channels')
-const videoRouter = require('./routes/videos')
-const playlistRouter = require('./routes/playlist')
-const searchRouter = require('./routes/search')
+const apiRouter = require('./routes/api')
 
 const app = express()
 
@@ -18,9 +15,6 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
-app.use('/channels', channelRouter)
-app.use('/videos', videoRouter)
-app.use('/playlist', playlistRouter)
-app.use('/search', searchRouter)
+app.use('/api/', apiRouter)
 
 module.exports = app
