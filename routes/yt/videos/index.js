@@ -2,13 +2,35 @@ const channelIds = require('../other/id-list')
 const yt = require('../lib')
 const paginator = require('../other/paginator')
 
+const getData = (video, avatar) => {
+    return {
+        type: video.type,
+        title: video.title,
+        videoId: video.videoId,
+        author: {
+            id: video.authorId,
+            name: video.author,
+            avatar: avatar,
+        },
+        videoThumbnails: video.videoThumbnails,
+        viewCountText: video.viewCountText,
+        viewCount: video.viewCount,
+        publishedText: video.publishedText,
+        lengthSeconds: video.lengthSeconds,
+        liveNow: video.liveNow,
+        premiere: video.premiere,
+        premium: video.premium
+    }
+}
+
 const channelInfo = async (videos, req, res) => {
     const page = req.query.page || 1
     const per_page = req.query.per_page || 10
     Promise.all(videos.map(async (video) => {
         const response = await yt.getInfo(video.authorId)
         const avatar = response.authorThumbnails[2].url
-        return { ...video, avatar }
+        const data = getData(video, avatar)
+        return data
     })).then((resArray) => {
         const paginedVideos = paginator(resArray, page, per_page)
         res.json({
