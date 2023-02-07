@@ -2,9 +2,29 @@ const channelIds = require('../other/id-list')
 const yt = require('../lib')
 const paginator = require('../other/paginator')
 
-const fromAllChannels = async (req, res) => {
+const channelInfo = async (videos, req, res) => {
     const page = req.query.page || 1
     const per_page = req.query.per_page || 10
+    Promise.all(videos.map(async (video) => {
+        const response = await yt.getInfo(video.authorId)
+        const avatar = response.authorThumbnails[2].url
+        return { ...video, avatar }
+    })).then((resArray) => {
+        const paginedVideos = paginator(resArray, page, per_page)
+        res.json({
+            error: false,
+            message: 'Videos fetched successfully',
+            ...paginedVideos
+        })
+    }).catch((err) => {
+        res.json({
+            error: true,
+            message: err.message
+        })
+    })
+}
+
+const fromAllChannels = async (req, res) => {
     let videos = []
     Promise.all(channelIds.map(async (channelId) => {
         const response = await yt.getVideo(channelId)
@@ -14,12 +34,7 @@ const fromAllChannels = async (req, res) => {
         resArray.map((item) => {
             videos.push(...item)
         })
-        const paginedVideos = paginator(videos, page, per_page)
-        res.json({
-            error: false,
-            message: 'Videos fetched successfully',
-            ...paginedVideos
-        })
+        channelInfo(videos, req, res)
     }).catch((err) => {
         res.json({
             error: true,
