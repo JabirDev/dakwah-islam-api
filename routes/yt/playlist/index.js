@@ -11,7 +11,7 @@ const channelId = async (req, res) => {
         res.json({
             error: false,
             message: 'Playlist fetched successfully',
-            data: paginedPlaylist,
+            ...paginedPlaylist,
             continuation: response.continuation
         })
     } else {
