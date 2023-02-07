@@ -43,6 +43,7 @@ const channelId = async (req, res) => {
         const data = getData(response)
         res.json({
             error: false,
+            message: 'Channel fetched successfully',
             data
         })
     } else {
