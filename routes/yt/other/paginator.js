@@ -1,5 +1,5 @@
 const sortVideos = (a, b) => {
-    const correctOrder = ['minutes', 'hours', 'day', 'days', 'weeks', 'month', 'months', 'year', 'years']
+    const correctOrder = ['Live', 'minutes', 'hours', 'day', 'days', 'weeks', 'month', 'months', 'year', 'years']
     // console.log('a: ' + a.publishedText + '\nb: ' + b.publishedText)
 
     if (a.publishedText && b.publishedText) {
