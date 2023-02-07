@@ -25,6 +25,7 @@ const allChannels = async (res) => {
     })).then((resArray) => {
         res.json({
             error: false,
+            message: 'Channels fetched successfully',
             data: resArray
         })
     }).catch((err) => {
