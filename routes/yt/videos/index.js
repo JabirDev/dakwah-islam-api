@@ -93,7 +93,7 @@ const singleVideo = async (req, res) => {
     if (response) {
         res.json({
             error: false,
-            data: response.videoDetails
+            data: response
         })
     } else {
         res.json({
