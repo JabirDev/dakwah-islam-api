@@ -1,3 +1,4 @@
+const ytdl = require('youtube-stream-url')
 const channelIds = require('../other/id-list')
 const yt = require('../lib')
 const paginator = require('../other/paginator')
@@ -85,6 +86,23 @@ const fromChannelId = async (req, res) => {
     }
 }
 
+const singleVideo = async (req, res) => {
+    const videoId = req.params.videoId
+    const yturl = { url: "https://www.youtube.com/watch?v=" + videoId }
+    const response = await ytdl.getInfo(yturl)
+    if (response) {
+        res.json({
+            error: false,
+            data: response.videoDetails
+        })
+    } else {
+        res.json({
+            error: true,
+            message: 'Failed to get video'
+        })
+    }
+}
+
 module.exports = {
-    fromAllChannels, fromChannelId
+    fromAllChannels, fromChannelId, singleVideo
 }
