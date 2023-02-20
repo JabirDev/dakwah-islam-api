@@ -67,18 +67,10 @@ const fromAllChannels = async (req, res) => {
 }
 
 const fromChannelId = async (req, res) => {
-    const page = req.query.page || 1
-    const per_page = req.query.per_page || 10
     const channelId = req.params.channelId
     const response = await yt.getVideo(channelId)
     if (response) {
         channelInfo(response.items, req, res)
-        // const paginedVideos = paginator(response.items, page, per_page)
-        // res.json({
-        //     error: false,
-        //     message: 'Videos fatched successfully',
-        //     ...paginedVideos
-        // })
     } else {
         res.json({
             error: true,
