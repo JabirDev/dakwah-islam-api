@@ -28,6 +28,7 @@ const playlistId = async (req, res) => {
     const response = await ytfps(playlistId)
     return res.json({
         error: false,
+        message: 'Playlist fetched successfully',
         data: response
     })
 }
