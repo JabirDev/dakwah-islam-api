@@ -23,9 +23,7 @@ router.get('/:channelId/:type', function (req, res, next) {
   } else if (type === 'video') {
     yt.getVideos.fromChannelId(req, res)
   } else {
-    return res.json({
-      type: type
-    })
+    yt.getVideos.singleVideo(req, res)
   }
 })
 

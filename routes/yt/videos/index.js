@@ -80,7 +80,7 @@ const fromChannelId = async (req, res) => {
 }
 
 const singleVideo = async (req, res) => {
-    const videoId = req.params.videoId
+    const videoId = req.params.type
     const yturl = { url: "https://www.youtube.com/watch?v=" + videoId }
     const response = await ytdl.getInfo(yturl)
     if (response) {
