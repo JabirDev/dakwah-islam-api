@@ -12,8 +12,21 @@ router.get('/channel/:channelId', async function (req, res, next) {
 })
 
 /* GET playlist */
-router.get('/playlist/:channelId', async function (req, res) {
-  yt.getPlaylist.channelId(req, res)
+router.get('/playlist/:playlistId', async function (req, res) {
+  yt.getPlaylist.playlistId(req, res)
+})
+
+router.get('/:channelId/:type', function (req, res, next) {
+  const type = req.params.type
+  if (type === 'playlist') {
+    yt.getPlaylist.channelId(req, res)
+  } else if (type === 'video') {
+    yt.getVideos.fromChannelId(req, res)
+  } else {
+    return res.json({
+      type: type
+    })
+  }
 })
 
 router.get('/video/:videoId', function (req, res, next) {
@@ -23,10 +36,6 @@ router.get('/video/:videoId', function (req, res, next) {
 /* GET videos listing. */
 router.get('/videos', function (req, res, next) {
   yt.getVideos.fromAllChannels(req, res)
-})
-
-router.get('/videos/:channelId', function (req, res, next) {
-  yt.getVideos.fromChannelId(req, res)
 })
 
 /* GET search query. */

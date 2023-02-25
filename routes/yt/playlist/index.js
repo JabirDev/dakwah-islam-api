@@ -1,4 +1,5 @@
 const yt = require('../lib')
+const ytfps = require('ytfps')
 const paginator = require('../other/paginator')
 
 const channelId = async (req, res) => {
@@ -22,6 +23,14 @@ const channelId = async (req, res) => {
     }
 }
 
+const playlistId = async (req, res) => {
+    const playlistId = req.params.playlistId
+    const response = await ytfps(playlistId)
+    return res.json({
+        data: response
+    })
+}
+
 module.exports = {
-    channelId
+    channelId, playlistId
 }

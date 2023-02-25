@@ -11,6 +11,7 @@
     "express": "latest",
     "morgan": "latest",
     "youtube-stream-url": "^2.4.1",
-    "yt-channel-info": "^3.2.1"
+    "yt-channel-info": "^3.2.1",
+    "ytfps": "^1.1.0"
   }
 }
