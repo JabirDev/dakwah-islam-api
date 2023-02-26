@@ -18,9 +18,9 @@ router.get('/playlist/:playlistId', async function (req, res) {
 
 router.get('/:channelId/:type', function (req, res, next) {
   const type = req.params.type
-  if (type === 'playlist') {
+  if (type === 'playlists') {
     yt.getPlaylist.channelId(req, res)
-  } else if (type === 'video') {
+  } else if (type === 'videos') {
     yt.getVideos.fromChannelId(req, res)
   } else {
     yt.getVideos.singleVideo(req, res)
